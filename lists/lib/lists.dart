@@ -1,6 +1,8 @@
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 
+import 'contact screen.dart';
+
 class Lists extends StatefulWidget {
   const Lists({Key? key}) : super(key: key);
 
@@ -36,59 +38,64 @@ class _ListsState extends State<Lists> {
             child: (ListView.builder(
                 itemCount: contacts.length,
                 itemBuilder: (context, index) {
-                  // return GestureDetector(onTap: () {
-                  //   Navigator.push(context,
-                  //       MaterialPageRoute(builder: (context) => const contact()));
-                  // });
-
-                  return Container(
-                      height: 100,
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: Colors.white),
-                      child: ListTile(
-                        leading: const CircleAvatar(
-                          radius: 28,
-                          child: Icon(
-                            Icons.person,
-                            size: 35,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Contact(
+                                  name: contacts[index]["name"],
+                                  number: contacts[index]["number"])));
+                    },
+                    child: Container(
+                        height: 100,
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: Colors.white),
+                        child: ListTile(
+                          leading: const CircleAvatar(
+                            radius: 28,
+                            child: Icon(
+                              Icons.person,
+                              size: 35,
+                            ),
                           ),
-                        ),
-                        title: Text(contacts[index]["name"]),
-                        subtitle: Text(contacts[index]["number"]),
-                        trailing: SizedBox(
-                          width: 100,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    contacts[index]["isSelected"] =
-                                        !contacts[index]["isSelected"];
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.favorite,
-                                  size: 30,
-                                  color: contacts[index]["isSelected"] == true
-                                      ? Colors.red
-                                      : Colors.grey,
+                          title: Text(contacts[index]["name"]),
+                          subtitle: Text(contacts[index]["number"]),
+                          trailing: SizedBox(
+                            width: 100,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      contacts[index]["isSelected"] =
+                                          !contacts[index]["isSelected"];
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.favorite,
+                                    size: 30,
+                                    color: contacts[index]["isSelected"] == true
+                                        ? Colors.red
+                                        : Colors.grey,
+                                  ),
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () {
-                                  callNumber(contacts[index]["number"]);
-                                },
-                                child: const Icon(Icons.call,
-                                    size: 32, color: Colors.green),
-                              )
-                            ],
+                                GestureDetector(
+                                  onTap: () {
+                                    callNumber(contacts[index]["number"]);
+                                  },
+                                  child: const Icon(Icons.call,
+                                      size: 32, color: Colors.green),
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ));
+                        )),
+                  );
                 }))));
   }
 }

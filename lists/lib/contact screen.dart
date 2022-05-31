@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-class contact extends StatefulWidget {
-  const contact({Key? key}) : super(key: key);
+class Contact extends StatefulWidget {
+  final String name;
+  final String number;
+  const Contact({Key? key, required this.name, required this.number})
+      : super(key: key);
 
   @override
-  State<contact> createState() => _contactState();
+  State<Contact> createState() => _contactState();
 }
 
-class _contactState extends State<contact> {
+class _contactState extends State<Contact> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,8 +29,15 @@ class _contactState extends State<contact> {
             const SizedBox(
               height: 30,
             ),
-            Row(
-              children: const [Text("")],
+            Column(
+              children: [
+                Row(
+                  children: [const Text("Name  :"), Text(widget.name)],
+                ),
+                Row(
+                  children: [const Text("Number  :"), Text(widget.number)],
+                ),
+              ],
             )
           ],
         ),
